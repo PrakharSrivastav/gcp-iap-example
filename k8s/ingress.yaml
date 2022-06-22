@@ -1,0 +1,76 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cip-kubernetes-dev-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "cip-kubernetes-dev-static-ip"
+    networking.gke.io/managed-certificates: "cip-kubernetes-dev-managed-cert"
+    networking.gke.io/v1beta1.FrontendConfig: "cip-kubernetes-dev-frontend-config"
+spec:
+  rules:
+    - host: dev.cip.sysco.no
+      http:
+        paths:
+          - path: /sms/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cipsmsout
+                port:
+                  number: 8080
+          - path: /report/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cipsmsdeliveryreport
+                port:
+                  number: 8080
+          - path: /jira/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: jirawebhook-service
+                port:
+                  number: 8080
+          - path: /marval/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: marvalwebhook-service
+                port:
+                  number: 8080
+          - path: /elhubag/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cipmetervalues-service
+                port:
+                  number: 8080
+          - path: /nordpool/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cipnordpool-service
+                port:
+                  number: 8080
+          - path: /weather/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cipweather-service
+                port:
+                  number: 8080
+          - path: /stats/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cipusagestats-service
+                port:
+                  number: 8080
+          - path: /oauthservice/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: oauthservice
+                port:
+                  number: 8080

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauthservice
+  labels:
+    app: oauthservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauthservice
+  template:
+    metadata:
+      labels:
+        app: oauthservice
+      name: oauthservice
+    spec:
+      containers:
+        - name: oauthservice
+          image: prakharsrivastav/oauth:0.0.23
+          resources:
+            requests:
+              cpu: 60m
+              memory: 50Mi
